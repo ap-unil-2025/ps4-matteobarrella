@@ -19,9 +19,8 @@ def create_number_list(start, end):
         >>> create_number_list(1, 5)
         [1, 2, 3, 4, 5]
     """
-    # TODO: Implement this function
-    # Hint: Use range() and convert to list
-    pass
+    # Implemented: Use range() and convert to list
+    return list(range(start, end + 1))
 
 
 def filter_even_numbers(numbers):
@@ -38,9 +37,8 @@ def filter_even_numbers(numbers):
         >>> filter_even_numbers([1, 2, 3, 4, 5, 6])
         [2, 4, 6]
     """
-    # TODO: Implement this function
-    # You can use a loop or list comprehension
-    pass
+    # Implemented with list comprehension
+    return [n for n in numbers if n % 2 == 0]
 
 
 def square_numbers(numbers):
@@ -57,9 +55,8 @@ def square_numbers(numbers):
         >>> square_numbers([1, 2, 3, 4])
         [1, 4, 9, 16]
     """
-    # TODO: Implement this function
-    # Hint: Try a list comprehension!
-    pass
+    # Implemented with list comprehension
+    return [n * n for n in numbers]
 
 
 def find_max_min(numbers):
@@ -76,9 +73,8 @@ def find_max_min(numbers):
         >>> find_max_min([3, 1, 4, 1, 5, 9, 2, 6])
         (9, 1)
     """
-    # TODO: Implement this function
-    # You can use max() and min() built-in functions
-    pass
+    # Implemented with built-ins
+    return (max(numbers), min(numbers))
 
 
 def remove_duplicates(items):
@@ -95,10 +91,14 @@ def remove_duplicates(items):
         >>> remove_duplicates([1, 2, 2, 3, 4, 3, 5])
         [1, 2, 3, 4, 5]
     """
-    # TODO: Implement this function
-    # Hint: You can use a loop and check if item is already in result list
-    # Or convert to set and back to list (but this doesn't preserve order)
-    pass
+    # Implemented with a loop to preserve order
+    seen = set()
+    unique_items = []
+    for x in items:
+        if x not in seen:
+            seen.add(x)
+            unique_items.append(x)
+    return unique_items
 
 
 def merge_lists(list1, list2):
@@ -119,9 +119,18 @@ def merge_lists(list1, list2):
         >>> merge_lists([1, 2], [10, 20, 30, 40])
         [1, 10, 2, 20, 30, 40]
     """
-    # TODO: Implement this function
-    # Hint: Use a loop with index, handle different lengths
-    pass
+    # Implemented with index-based loop, handling different lengths
+    merged = []
+    i, j = 0, 0
+    n1, n2 = len(list1), len(list2)
+    while i < n1 or j < n2:
+        if i < n1:
+            merged.append(list1[i])
+            i += 1
+        if j < n2:
+            merged.append(list2[j])
+            j += 1
+    return merged
 
 
 def list_statistics(numbers):
@@ -141,9 +150,17 @@ def list_statistics(numbers):
     if not numbers:
         return None
 
-    # TODO: Implement this function
-    # Calculate and return a dictionary with the statistics
-    pass
+    # Implemented calculations
+    total = sum(numbers)
+    count = len(numbers)
+    avg = total / count
+    return {
+        'sum': total,
+        'average': avg,
+        'count': count,
+        'max': max(numbers),
+        'min': min(numbers),
+    }
 
 
 def chunk_list(items, chunk_size):
@@ -161,9 +178,10 @@ def chunk_list(items, chunk_size):
         >>> chunk_list([1, 2, 3, 4, 5, 6, 7], 3)
         [[1, 2, 3], [4, 5, 6], [7]]
     """
-    # TODO: Implement this function
-    # Hint: Use list slicing in a loop
-    pass
+    # Implemented with slicing
+    if chunk_size <= 0:
+        raise ValueError("chunk_size must be a positive integer")
+    return [items[i:i + chunk_size] for i in range(0, len(items), chunk_size)]
 
 
 # Test cases
