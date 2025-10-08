@@ -1,213 +1,71 @@
+
 """
 Bonus Problem: Introduction to Recursion
 Learn about recursive functions - functions that call themselves!
-
-Recursion is when a function calls itself to solve smaller versions of the same problem.
-Every recursive function needs:
-1. Base case - when to stop
-2. Recursive case - how to break down the problem
 """
+from typing import List, Any
 
+def factorial(n: int) -> int:
+    """Calculate factorial of n using recursion."""
+    if n < 0:
+        raise ValueError("factorial is undefined for negative integers")
+    if n <= 1:
+        return 1
+    return n * factorial(n - 1)
 
-def factorial(n):
-    """
-    Calculate factorial of n using recursion.
-    n! = n × (n-1) × (n-2) × ... × 1
-    Example: 5! = 5 × 4 × 3 × 2 × 1 = 120
+def countdown(n: int) -> None:
+    """Print numbers from n down to 1 using recursion, then 'Blastoff!'."""
+    if n <= 0:
+        print("Blastoff!")
+        return
+    print(n)
+    countdown(n - 1)
 
-    Args:
-        n (int): Non-negative integer
+def sum_list(numbers: List[float]) -> float:
+    """Calculate sum of list using recursion."""
+    if not numbers:
+        return 0
+    return numbers[0] + sum_list(numbers[1:])
 
-    Returns:
-        int: Factorial of n
+def fibonacci(n: int) -> int:
+    """Calculate nth Fibonacci number using recursion (0-indexed)."""
+    if n < 0:
+        raise ValueError("fibonacci is undefined for negative indices")
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2)
 
-    Example:
-        >>> factorial(5)
-        120
-        >>> factorial(0)
-        1
-    """
-    # TODO: Implement this function recursively
-    # Base case: if n is 0 or 1, return 1
-    # Recursive case: return n * factorial(n-1)
+def power(base: float, exponent: int) -> float:
+    """Calculate base^exponent using recursion (exponent >= 0)."""
+    if exponent < 0:
+        raise ValueError("exponent must be non-negative for this implementation")
+    if exponent == 0:
+        return 1
+    return base * power(base, exponent - 1)
 
-    # Hint:
-    # if n <= 1:
-    #     return 1
-    # return n * factorial(n - 1)
-    pass
+def reverse_string(text: str) -> str:
+    """Reverse a string using recursion."""
+    if len(text) <= 1:
+        return text
+    return text[-1] + reverse_string(text[:-1])
 
+def count_down_list(n: int) -> list:
+    """Create a list of numbers from n down to 1 using recursion."""
+    if n <= 0:
+        return []
+    return [n] + count_down_list(n - 1)
 
-def countdown(n):
-    """
-    Print numbers from n down to 1 using recursion.
-
-    Args:
-        n (int): Starting number
-
-    Example:
-        >>> countdown(5)
-        5
-        4
-        3
-        2
-        1
-        Blastoff!
-    """
-    # TODO: Implement this function recursively
-    # Base case: if n is 0, print "Blastoff!" and return
-    # Recursive case: print n, then call countdown(n-1)
-    pass
-
-
-def sum_list(numbers):
-    """
-    Calculate sum of list using recursion.
-
-    Args:
-        numbers (list): List of numbers
-
-    Returns:
-        int or float: Sum of all numbers
-
-    Example:
-        >>> sum_list([1, 2, 3, 4, 5])
-        15
-    """
-    # TODO: Implement this function recursively
-    # Base case: if list is empty, return 0
-    # Recursive case: return first element + sum_list(rest of list)
-
-    # Hint:
-    # if not numbers:  # empty list
-    #     return 0
-    # return numbers[0] + sum_list(numbers[1:])
-    pass
-
-
-def fibonacci(n):
-    """
-    Calculate nth Fibonacci number using recursion.
-    Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, ...
-    Each number is the sum of the previous two.
-
-    Args:
-        n (int): Position in sequence (0-indexed)
-
-    Returns:
-        int: nth Fibonacci number
-
-    Example:
-        >>> fibonacci(0)
-        0
-        >>> fibonacci(1)
-        1
-        >>> fibonacci(6)
-        8
-    """
-    # TODO: Implement this function recursively
-    # Base cases: if n is 0, return 0; if n is 1, return 1
-    # Recursive case: return fibonacci(n-1) + fibonacci(n-2)
-    pass
-
-
-def power(base, exponent):
-    """
-    Calculate base^exponent using recursion.
-
-    Args:
-        base (int or float): Base number
-        exponent (int): Exponent (non-negative)
-
-    Returns:
-        int or float: Result of base^exponent
-
-    Example:
-        >>> power(2, 5)
-        32
-        >>> power(3, 3)
-        27
-    """
-    # TODO: Implement this function recursively
-    # Base case: if exponent is 0, return 1
-    # Recursive case: return base * power(base, exponent-1)
-    pass
-
-
-def reverse_string(text):
-    """
-    Reverse a string using recursion.
-
-    Args:
-        text (str): String to reverse
-
-    Returns:
-        str: Reversed string
-
-    Example:
-        >>> reverse_string("hello")
-        "olleh"
-    """
-    # TODO: Implement this function recursively
-    # Base case: if text is empty or 1 character, return it
-    # Recursive case: return last character + reverse_string(rest of string)
-
-    # Hint:
-    # if len(text) <= 1:
-    #     return text
-    # return text[-1] + reverse_string(text[:-1])
-    pass
-
-
-def count_down_list(n):
-    """
-    Create a list of numbers from n down to 1 using recursion.
-
-    Args:
-        n (int): Starting number
-
-    Returns:
-        list: List of numbers from n to 1
-
-    Example:
-        >>> count_down_list(5)
-        [5, 4, 3, 2, 1]
-    """
-    # TODO: Implement this function recursively
-    # Base case: if n is 0, return empty list
-    # Recursive case: return [n] + count_down_list(n-1)
-    pass
-
-
-def flatten_list(nested_list):
-    """
-    Flatten a nested list using recursion.
-
-    Args:
-        nested_list (list): List that may contain nested lists
-
-    Returns:
-        list: Flattened list
-
-    Example:
-        >>> flatten_list([1, [2, 3], [4, [5, 6]], 7])
-        [1, 2, 3, 4, 5, 6, 7]
-    """
-    # TODO: Implement this function recursively
-    # Base case: if empty list, return []
-    # For each item:
-    #   - If it's a list, recursively flatten it
-    #   - If not, keep it as is
-
-    # Hint:
-    # result = []
-    # for item in nested_list:
-    #     if isinstance(item, list):
-    #         result.extend(flatten_list(item))
-    #     else:
-    #         result.append(item)
-    # return result
-    pass
+def flatten_list(nested_list: List[Any]) -> List[Any]:
+    """Flatten a nested list using recursion."""
+    result: List[Any] = [] #pylint: disable=redefined-outer-name
+    for item in nested_list:
+        if isinstance(item, list):
+            result.extend(flatten_list(item))
+        else:
+            result.append(item)
+    return result
 
 
 # Test cases
