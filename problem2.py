@@ -3,207 +3,83 @@ Problem 2: Dictionary Operations and Nested Structures
 Practice working with Python dictionaries - creating, accessing, modifying, and nesting them.
 """
 
-
+import string
 def create_student_record(name, age, major, gpa):
-    """
-    Create a student record as a dictionary.
-
-    Args:
-        name (str): Student name
-        age (int): Student age
-        major (str): Student major
-        gpa (float): Student GPA
-
-    Returns:
-        dict: Student record with keys 'name', 'age', 'major', 'gpa'
-
-    Example:
-        >>> create_student_record("Alice", 20, "Computer Science", 3.8)
-        {'name': 'Alice', 'age': 20, 'major': 'Computer Science', 'gpa': 3.8}
-    """
-    # TODO: Implement this function
-    # Return a dictionary with the provided information
-    pass
+    """Create a student record as a dictionary."""
+    return {'name': name, 'age': age, 'major': major, 'gpa': gpa}
 
 
 def get_value_safely(dictionary, key, default=None):
-    """
-    Get a value from a dictionary safely, returning default if key doesn't exist.
-
-    Args:
-        dictionary (dict): The dictionary to search
-        key: The key to look for
-        default: Value to return if key not found
-
-    Returns:
-        The value if key exists, otherwise default
-
-    Example:
-        >>> d = {'a': 1, 'b': 2}
-        >>> get_value_safely(d, 'a')
-        1
-        >>> get_value_safely(d, 'c', 'Not found')
-        'Not found'
-    """
-    # TODO: Implement this function
-    # Hint: Use the .get() method or check if key in dictionary
-    pass
+    """Get a value from a dictionary safely, returning default if key doesn't exist."""
+    return dictionary.get(key, default)
 
 
 def merge_dictionaries(dict1, dict2):
-    """
-    Merge two dictionaries. If keys conflict, dict2's values take precedence.
-
-    Args:
-        dict1 (dict): First dictionary
-        dict2 (dict): Second dictionary
-
-    Returns:
-        dict: Merged dictionary
-
-    Example:
-        >>> merge_dictionaries({'a': 1, 'b': 2}, {'b': 3, 'c': 4})
-        {'a': 1, 'b': 3, 'c': 4}
-    """
-    # TODO: Implement this function
-    # Create a new dictionary with items from both
-    pass
-
+    """Merge two dictionaries. If keys conflict, dict2's values take precedence."""
+    merged = dict1.copy()
+    merged.update(dict2)
+    return merged
 
 def count_word_frequency(text):
     """
     Count the frequency of each word in a text string.
     Convert to lowercase and ignore punctuation.
-
-    Args:
-        text (str): Input text
-
-    Returns:
-        dict: Dictionary mapping each word to its frequency
-
-    Example:
-        >>> count_word_frequency("hello world hello")
-        {'hello': 2, 'world': 1}
     """
-    # TODO: Implement this function
-    # Steps:
-    # 1. Convert text to lowercase
-    # 2. Remove punctuation (you can use .replace() or import string)
-    # 3. Split into words
-    # 4. Count each word's frequency
-    pass
+    if not text:
+        return {}
+    lowered = text.lower()
+    translator = str.maketrans('', '', string.punctuation)
+    cleaned = lowered.translate(translator)
+    words = cleaned.split()
+    freq = {}
+    for w in words:
+        freq[w] = freq.get(w, 0) + 1
+    return freq
 
 
 def invert_dictionary(dictionary):
-    """
-    Invert a dictionary (swap keys and values).
-    Assume all values are unique.
-
-    Args:
-        dictionary (dict): Dictionary to invert
-
-    Returns:
-        dict: Inverted dictionary
-
-    Example:
-        >>> invert_dictionary({'a': 1, 'b': 2, 'c': 3})
-        {1: 'a', 2: 'b', 3: 'c'}
-    """
-    # TODO: Implement this function
-    # Create a new dictionary with values as keys and keys as values
-    pass
+    """Invert a dictionary (swap keys and values). Assume all values are unique."""
+    return {v: k for k, v in dictionary.items()}
 
 
 def filter_dictionary(dictionary, keys_to_keep):
-    """
-    Create a new dictionary with only the specified keys.
-
-    Args:
-        dictionary (dict): Source dictionary
-        keys_to_keep (list): List of keys to keep
-
-    Returns:
-        dict: Filtered dictionary
-
-    Example:
-        >>> filter_dictionary({'a': 1, 'b': 2, 'c': 3, 'd': 4}, ['a', 'c'])
-        {'a': 1, 'c': 3}
-    """
-    # TODO: Implement this function
-    # Loop through keys_to_keep and add them to result if they exist
-    pass
+    """Create a new dictionary with only the specified keys."""
+    return {k: dictionary[k] for k in keys_to_keep if k in dictionary}
 
 
 def group_by_first_letter(words):
     """
     Group words by their first letter.
-
-    Args:
-        words (list): List of words
-
-    Returns:
-        dict: Dictionary where keys are first letters, values are lists of words
-
-    Example:
-        >>> group_by_first_letter(['apple', 'banana', 'apricot', 'blueberry'])
-        {'a': ['apple', 'apricot'], 'b': ['banana', 'blueberry']}
+    Keys are lowercase first letters; words are preserved as given.
     """
-    # TODO: Implement this function
-    # For each word:
-    #   - Get first letter
-    #   - Add word to the list for that letter
-    # Hint: Use .setdefault() or check if key exists
-    pass
+    grouped = {}
+    for w in words:
+        if not w:
+            continue
+        first = w[0].lower()
+        grouped.setdefault(first, []).append(w)
+    return grouped
 
 
 def calculate_grades_average(students):
-    """
-    Calculate the average grade for each student.
-
-    Args:
-        students (dict): Dictionary where keys are student names,
-                        values are lists of grades
-
-    Returns:
-        dict: Dictionary where keys are student names,
-              values are average grades (rounded to 2 decimals)
-
-    Example:
-        >>> calculate_grades_average({
-        ...     'Alice': [90, 85, 88],
-        ...     'Bob': [75, 80, 78]
-        ... })
-        {'Alice': 87.67, 'Bob': 77.67}
-    """
-    # TODO: Implement this function
-    # For each student, calculate average of their grades
-    # Hint: sum(grades) / len(grades)
-    pass
+    """Calculate the average grade for each student (rounded to 2 decimals)."""
+    averages = {}
+    for name, grades in students.items():
+        if not grades:
+            averages[name] = 0.0
+        else:
+            averages[name] = round(sum(grades) / len(grades), 2)
+    return averages
 
 
-def nested_dict_access(data, keys):
-    """
-    Access a nested dictionary using a list of keys.
-    Return None if any key doesn't exist.
-
-    Args:
-        data (dict): Nested dictionary
-        keys (list): List of keys to traverse
-
-    Returns:
-        Value at the nested location, or None if not found
-
-    Example:
-        >>> data = {'a': {'b': {'c': 123}}}
-        >>> nested_dict_access(data, ['a', 'b', 'c'])
-        123
-        >>> nested_dict_access(data, ['a', 'x'])
-        None
-    """
-    # TODO: Implement this function
-    # Start with data, then traverse using each key
-    # Return None if any key is missing
-    pass
+def nested_dict_access(av_data, keys):
+    """Access a nested dictionary using a list of keys. Return None if any key doesn't exist."""
+    current = av_data
+    for k in keys:
+        if not isinstance(current, dict) or k not in current:
+            return None
+        current = current[k]
+    return current
 
 
 # Test cases
